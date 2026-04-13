@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0F2438;--navy2:#162D44;--navy3:#1C3650;
+  --cream:#FAF8F5;--warm:#F5F0EB;--sand:#EDE7DF;
+  --ink:#1A1A1A;--ink2:#4A4A4A;--ink3:#8A8A8A;--ink4:#B8B8B8;
+  --gold:#C4933C;--gold-lt:rgba(196,147,60,0.08);
+  --teal:#1A8577;--teal-lt:rgba(26,133,119,0.07);
+  --border:rgba(0,0,0,0.06);--border2:rgba(0,0,0,0.1);
+  --white:#FFFFFF;
+}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+.hero{background:var(--navy);color:white;padding:52px 60px 44px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;right:0;width:500px;height:100%;background:linear-gradient(135deg,transparent 40%,rgba(196,147,60,0.06) 100%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold),transparent 60%)}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px}
+.hero-brand{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.4)}
+.hero-brand span{color:var(--gold);margin:0 8px}
+.hero-date{font-size:11px;color:rgba(255,255,255,0.35);font-weight:500;letter-spacing:0.05em}
+.hero h1{font-family:'Instrument Serif',serif;font-size:42px;font-weight:400;line-height:1.15;margin-bottom:8px;letter-spacing:-0.01em}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,0.5);font-weight:400;margin-bottom:28px}
+.hero-meta{display:flex;gap:32px;flex-wrap:wrap}
+.hero-meta div{font-size:11px;color:rgba(255,255,255,0.3);font-weight:500;text-transform:uppercase;letter-spacing:0.08em}
+.hero-meta div span{display:block;color:rgba(255,255,255,0.7);font-size:13px;margin-top:3px;letter-spacing:0;text-transform:none;font-weight:600}
+
+.highlights{display:grid;grid-template-columns:repeat(4,1fr);margin:0 60px;transform:translateY(-32px);position:relative;z-index:2}
+.hl{background:var(--white);padding:28px 28px 24px;border:1px solid var(--border);position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.hl:first-child{border-radius:12px 0 0 12px}
+.hl:last-child{border-radius:0 12px 12px 0}
+.hl:not(:last-child){border-right:none}
+.hl:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.06)}
+.hl::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.hl:nth-child(1)::before{background:var(--gold)}
+.hl:nth-child(2)::before{background:var(--teal)}
+.hl:nth-child(3)::before{background:#2563EB}
+.hl:nth-child(4)::before{background:var(--navy)}
+.hl-num{font-family:'Instrument Serif',serif;font-size:36px;font-weight:400;color:var(--ink);line-height:1;margin-bottom:8px}
+.hl-label{font-size:11px;color:var(--ink3);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;line-height:1.4}
+
+.table-wrap{margin:8px 60px 40px;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.03)}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:14px 16px;text-align:left;border-bottom:1px solid var(--border2)}
+.th-main{background:var(--navy);color:rgba(255,255,255,0.9)}
+.th-main.impact-span{text-align:center;border-left:1px solid rgba(255,255,255,0.08)}
+.th-sub{background:var(--navy2);color:rgba(255,255,255,0.55);font-size:9px;padding:10px 16px}
+.th-sub:nth-child(n+4){text-align:center;border-left:1px solid rgba(255,255,255,0.05)}
+
+tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(196,147,60,0.02)}
+td{padding:16px;vertical-align:top;font-size:12.5px;line-height:1.6;color:var(--ink2)}
+
+/* Function group dividers */
+.fn-divider td{background:var(--cream);padding:6px 16px;border-bottom:1px solid var(--border2)}
+.fn-divider-label{font-size:9.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3)}
+
+.td-fn{width:88px;font-weight:700;font-size:10.5px;color:var(--navy);text-transform:uppercase;letter-spacing:0.06em;line-height:1.4}
+.td-init{width:130px}
+.td-impact{width:155px;border-left:1px solid var(--border)}
+
+.init-name{font-family:'Instrument Serif',serif;font-size:15px;font-weight:400;color:var(--ink);line-height:1.25;margin-bottom:3px}
+.init-id{font-size:9.5px;color:var(--ink4);font-weight:600;letter-spacing:0.06em}
+
+.scope{color:var(--ink2);line-height:1.65;font-size:12.5px}
+.scope strong{color:var(--ink);font-weight:600}
+
+.iv{font-weight:700;color:var(--ink);font-size:12px;margin-bottom:4px}
+.in{font-size:10.5px;color:var(--ink3);line-height:1.5}
+.ib{font-size:11px;color:var(--ink2);line-height:1.5;margin-bottom:3px}
+.dash{color:var(--ink4)}
+
+.pill{display:inline-block;font-size:8.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-bottom:8px}
+.pill-live{background:rgba(26,133,119,0.1);color:var(--teal)}
+.pill-dev{background:rgba(37,99,235,0.08);color:#2563EB}
+.pill-done{background:rgba(5,150,105,0.08);color:#059669}
+.pill-design{background:rgba(124,58,237,0.06);color:#7C3AED}
+
+tbody tr:nth-child(even):not(.fn-divider){background:rgba(0,0,0,0.012)}
+
+.foot{margin:0 60px 40px;padding-top:16px;border-top:1px solid var(--border2);display:flex;justify-content:space-between}
+.foot div{font-size:10.5px;color:var(--ink3);font-weight:500;letter-spacing:0.02em}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hl{animation:fadeUp .5s ease both}
+.hl:nth-child(1){animation-delay:.1s}
+.hl:nth-child(2){animation-delay:.2s}
+.hl:nth-child(3){animation-delay:.3s}
+.hl:nth-child(4){animation-delay:.4s}
+@media(prefers-reduced-motion:reduce){.hl{animation:none}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-brand">Inscend AI <span>×</span> Optimize Wealth Management</div>
+    <div class="hero-date">April 2026 · Confidential</div>
+  </div>
+  <h1>Phase 2: AI Use Case Design &<br><em>Technical Specification</em></h1>
+  <div class="hero-sub">Progress Update — 10 Use Cases Across 5 Functions</div>
+  <div class="hero-meta">
+    <div>Engagement<span>Jan 23 – Apr 10, 2026</span></div>
+    <div>Use Cases<span>10 in scope</span></div>
+    <div>Functions<span>Compliance · Corp Dev · Investment · Operations</span></div>
+    <div>Figures<span>All amounts in CAD</span></div>
+  </div>
+</div>
+
+<div class="highlights">
+  <div class="hl"><div class="hl-num">$164K–$227K</div><div class="hl-label">Quantified annual<br>impact (6 of 10)</div></div>
+  <div class="hl"><div class="hl-num">70</div><div class="hl-label">Lost deals set for<br>re-engagement</div></div>
+  <div class="hl"><div class="hl-num">~4,000/mo</div><div class="hl-label">Suitability reviews<br>covered</div></div>
+  <div class="hl"><div class="hl-num">130K</div><div class="hl-label">Advisors<br>monitored</div></div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr><th class="th-main">Function</th><th class="th-main">Initiative</th><th class="th-main">Scope & Work Completed</th><th class="th-main impact-span" colspan="4">Impact</th></tr>
+  <tr><th class="th-sub"></th><th class="th-sub"></th><th class="th-sub"></th><th class="th-sub">Revenue</th><th class="th-sub">Cost</th><th class="th-sub">Quality</th><th class="th-sub">Flexibility</th></tr>
+</thead>
+<tbody>
+
+<!-- ===== BUS DEV / CORP DEV — sorted by value desc ===== -->
+
+<tr>
+  <td class="td-fn">Bus Dev / Corp Dev</td>
+  <td class="td-init"><div class="init-name">Predictive Lead Scoring</div><div class="init-id">CORP-05</div></td>
+  <td><span class="pill pill-dev">Design complete; in development</span><div class="scope"><strong>Design complete; in development.</strong> ML model scoring conversion probability (0–100%) from HubSpot + CORP-02/08/13 inputs. Tiering: Hot (80+)/Warm/Nurture/Cold. Auto-routing by territory. Current: 7% close rate, high variability across 22-person team, no shared scoring. Feature engineering and tech spec delivered.</div></td>
+  <td class="td-impact"><div class="iv">$40K–$60K/yr</div><div class="in">Improved prioritization across 22-person team. Higher close rate from data-driven lead allocation.</div></td>
+  <td class="td-impact"><div class="ib">Reps focus high probability leads vs. equal treatment across pipeline.</div></td>
+  <td class="td-impact"><div class="ib">Data-driven scoring replaces subjective judgment.</div><div class="ib">Consistent lead treatment across all reps.</div></td>
+  <td class="td-impact"><div class="ib">Monthly retrain adapts to market shifts and deal patterns.</div></td>
+</tr>
+
+<tr>
+  <td class="td-fn">Bus Dev / Corp Dev</td>
+  <td class="td-init"><div class="init-name">No-Show Prediction & Prevention</div><div class="init-id">CORP-11</div></td>
+  <td><span class="pill pill-dev">Design complete; in development</span><div class="scope"><strong>Design complete.</strong> ML model predicting no-show probability (0–100%). Risk tiering: Low/Med/High/Critical with escalating intervention playbooks. Uses CORP-05 lead score, CORP-02 verified channels, calendar + HubSpot history. Current: only touchpoint is 5pm email day before. Tech spec and cross-pipeline data flow delivered.</div></td>
+  <td class="td-impact"><div class="iv">$20K–$35K/yr</div><div class="in">10% no-show reduction × meeting value per recovered meeting.</div></td>
+  <td class="td-impact"><div class="ib">Automated reminders replace manual confirmation calls.</div></td>
+  <td class="td-impact"><div class="ib">Risk-tiered intervention vs. one-size-fits-all reminder email.</div></td>
+  <td class="td-impact"><div class="ib">Playbooks adapt as model learns per risk tier and meeting type.</div></td>
+</tr>
+
+<tr>
+  <td class="td-fn">Bus Dev / Corp Dev</td>
+  <td class="td-init"><div class="init-name">Contact Info Validation & Enrichment</div><div class="init-id">CORP-02</div></td>
+  <td><span class="pill pill-live">Complete and operational</span><div class="scope"><strong>Complete and operational.</strong> 8-step pipeline: phone/email validation, CSA + LinkedIn enrichment, AI fuzzy-match deduplication, quality scoring (0–100). Foundation for CORP-05/08/11/13/NEW. BDRs dial 200+/day at 7–10% connect rate — most CSA numbers are office lines. Discovery with Jacob Haynes. Data flow and tech spec delivered.</div></td>
+  <td class="td-impact"><div class="iv">Enables deals downstream</div><div class="in">Clean data is the multiplier for all pipeline models.</div></td>
+  <td class="td-impact"><div class="iv">BDR efficiency gain</div><div class="in">6 BDRs × 200+ dials/day. Direct lines replace dead dials; 5% improvement = ~60 additional conversations/day.</div></td>
+  <td class="td-impact"><div class="ib">Quality score per contact enables prioritization.</div><div class="ib">Deduplication removes wasted effort across reps.</div></td>
+  <td class="td-impact"><div class="ib">All downstream models inherit improvements.</div></td>
+</tr>
+
+<tr>
+  <td class="td-fn">Bus Dev / Corp Dev</td>
+  <td class="td-init"><div class="init-name">Advisor Movement Monitoring</div><div class="init-id">CORP-08</div></td>
+  <td><span class="pill pill-dev">Design complete; in development</span><div class="scope"><strong>Design complete; in development.</strong> Monitors ~130K advisors across 6 sources (CSA, LinkedIn, BrokerCheck, news, team pages, HubSpot watch list) for movement signals scored against ideal profile: long-tenure, non-bank, never moved. Firm-wide triggers (comp cuts, M&A, platform changes) are highest leverage — one event makes an entire firm receptive. Signals feed CORP-05 lead scoring with tier adjustments; watch list matches trigger immediate alerts.</div></td>
+  <td class="td-impact"><span class="dash">—</span></td>
+  <td class="td-impact"><div class="ib">Replaces manual assessments with automated monitoring across full advisor universe.</div></td>
+  <td class="td-impact"><div class="ib">Systematic signal detection. Positive/negative/neutral classification focuses BD attention on highest-value opportunities.</div></td>
+  <td class="td-impact"><div class="ib">New signal sources added modularly.</div><div class="ib">Scales across expanding target universe.</div></td>
+</tr>
+
+<!-- ===== CORP DEV — sorted by value desc ===== -->
+
+<tr>
+  <td class="td-fn">Corp Dev</td>
+  <td class="td-init"><div class="init-name">Deal Loss Analysis & Re-engagement</div><div class="init-id">CORP-13</div></td>
+  <td><span class="pill pill-live">Complete and operational</span><div class="scope"><strong>Complete and operational.</strong> NLP classification of loss reasons (L1+L2 taxonomy). $554.8M total AUM in lost deals analyzed. Loss notes ranged from 2 words to paragraphs with no structure. System generates personalized re-engagement tasks in HubSpot. ~70 re-engagement tasks sent to date. Taxonomy, workflow, and tech spec delivered.</div></td>
+  <td class="td-impact"><div class="iv">$25K–$40K/yr</div><div class="in">~70 re-engagements sent to date. $76.6B total AUM in lost deals analyzed; even converting a fraction of 1% of recoverable pipeline represents material revenue. 1 win-back per cycle justifies the investment many times over.</div></td>
+  <td class="td-impact"><div class="ib">Eliminates manual loss note analysis.</div><div class="ib">Auto-generates HubSpot tasks vs. 6-month manual re-engagement.</div></td>
+  <td class="td-impact"><div class="ib">Consistent taxonomy vs. unstructured notes.</div><div class="ib">AI vs. rep classification catches miscategorization.</div></td>
+  <td class="td-impact"><div class="ib">Taxonomy adapts as new patterns surface.</div><div class="ib">Playbooks evolve with win-back outcomes.</div></td>
+</tr>
+
+<tr>
+  <td class="td-fn">Corp Dev</td>
+  <td class="td-init"><div class="init-name">Deal Closure Scoring</div><div class="init-id">CORP-NEW</div></td>
+  <td><span class="pill pill-dev">Design complete; in development</span><div class="scope"><strong>Design complete.</strong> Real-time deal health scoring with momentum signals and next-best-action prompts. Added post-SOW. Integrates across full pipeline (CORP-02/05/08/11/13). Scores engagement velocity, stage duration vs. norms, response patterns.</div></td>
+  <td class="td-impact"><div class="iv">Revenue uplift</div><div class="in">Faster close cycles via early stall detection in 4–6 month cycle.</div></td>
+  <td class="td-impact"><span class="dash">—</span></td>
+  <td class="td-impact"><div class="ib">Surfaces stalled deals invisible over multi-month cycle.</div></td>
+  <td class="td-impact"><div class="ib">Composable with all pipeline models. Inherits upstream improvements.</div></td>
+</tr>
+
+<!-- ===== MAC DEV ===== -->
+
+<tr>
+  <td class="td-fn">Mac Dev</td>
+  <td class="td-init"><div class="init-name">Suitability Intake</div><div class="init-id">COMP-05</div></td>
+  <td><span class="pill pill-dev">Design complete; in development</span><div class="scope"><strong>Design complete; in development.</strong> Designed end-to-end AI workflow for KYC information extraction covering ~4,000 reviews/month (21,000 clients; 47,000 accounts). <strong>Phase 1 (Automatic)</strong> — AI analyzes Zoom call transcripts, identifies call type, extracts client information and KYC fields. <strong>Phase 2 (PM-triggered)</strong> — AI validates data against compliance suitability matrix, classifies exceptions, generates draft suitability note. PM reviews via AI dashboard; approved data pushes to HubSpot. Continuous improvement loop support three types of feedback: missing calls, extraction mistakes and generation issues.</div></td>
+  <td class="td-impact"><span class="dash">—</span></td>
+  <td class="td-impact"><div class="iv">$23K–$30K/yr</div><div class="in">2 staff × 5 hrs/wk × 52 × $37/hr × 60% = $23,088. Target: 15+ calls/day vs. current 12.</div></td>
+  <td class="td-impact"><div class="ib">Consistent rule application across PMs.</div><div class="ib">Pre-submission AI check catches per-PM deficiency patterns invisible today.</div></td>
+  <td class="td-impact"><div class="ib">PDF no-call path targets ~80% of annual KYCs at 8× throughput.</div><div class="ib">Supports case for raising 1,500 client/PM cap.</div></td>
+</tr>
+
+<!-- ===== COMPLIANCE ===== -->
+
+<tr>
+  <td class="td-fn">Compliance</td>
+  <td class="td-init"><div class="init-name">Unlicensed Advisory Email Screening</div><div class="init-id">COMP-07</div></td>
+  <td><span class="pill pill-live">Complete and operational</span><div class="scope"><strong>Complete and operational.</strong> AI agent screens wealth planner outbound emails for unlicensed advisory language. 3-tier risk taxonomy (High/Med/Low), 18 detection patterns, context-aware score modifiers. CCO Matt Tomasic signed off; merged Acceptable/Low tiers. The system is live, weekly report to Compliance leadership every Thursday.</div></td>
+  <td class="td-impact"><span class="dash">—</span></td>
+  <td class="td-impact"><span class="dash">—</span></td>
+  <td class="td-impact"><div class="ib">Systematic all-email screening vs. prior sample-based review.</div><div class="ib">Regulatory risk reduction.</div></td>
+  <td class="td-impact"><div class="ib">Scales to full volume without adding reviewers.</div><div class="ib">Taxonomy updated as risk patterns emerge.</div></td>
+</tr>
+
+<!-- ===== INVESTMENT ===== -->
+
+<tr>
+  <td class="td-fn">Investment</td>
+  <td class="td-init"><div class="init-name">AI Security Screening & Filtering</div><div class="init-id">INV-06</div></td>
+  <td><span class="pill pill-dev">Design complete; in development</span><div class="scope"><strong>Design complete.</strong> Screens ~750–1,000 equities (S&P 500, TSX 60, ADRs) against 20–30 criteria, scores and tiers results, and auto-generates 220+ reports per run. Today this takes 30 analyst hours and a full week. Requirements, tech spec, and data readiness delivered.</div></td>
+  <td class="td-impact"><span class="dash">—</span></td>
+  <td class="td-impact"><div class="iv">$12K–$18K/yr</div><div class="in">6 analysts × 2 hrs/wk × 52 × $37/hr × 60% = $13,838.</div></td>
+  <td class="td-impact"><div class="ib">Systematic, repeatable screening. Consistent criteria application.</div></td>
+  <td class="td-impact"><div class="ib">Criteria updates instant. Scales across security universe.</div></td>
+</tr>
+
+<!-- ===== OPS / COMPLIANCE ===== -->
+
+<tr>
+  <td class="td-fn">Ops / Compliance</td>
+  <td class="td-init"><div class="init-name">KYC Account Opening Automation</div><div class="init-id">OPS-01</div></td>
+  <td><span class="pill pill-done">Complete</span><div class="scope"><strong>Complete.</strong> Mapped full 10-stage account opening workflow. Evaluated automating AML & ID verification, recommending Persona (automated KYC platform) over adding headcount. ~9,000 checks/year currently handled by 2 staff. Projected savings of ~$44,300 CAD/year. Cost analysis, workflow, and tech spec delivered.</div></td>
+  <td class="td-impact"><span class="dash">—</span></td>
+  <td class="td-impact"><div class="iv">1 FTE time savings</div><div class="in">9,000 accts/yr × ~10 min. Routine auto verified; exceptions to humans.</div></td>
+  <td class="td-impact"><div class="ib">Consistent verification with structured audit trail. Catches discrepancies missed in visual comparison.</div></td>
+  <td class="td-impact"><div class="ib">Handles volume growth without headcount increase.</div></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<div style="margin:0 60px 16px;padding-top:12px;border-top:1px solid var(--border)">
+<div style="font-size:9px;color:#A0A0A0;line-height:1.6;max-width:900px">
+<span style="font-weight:600">1.</span> All dollar estimates are projections based on discovery session inputs, current headcount, and blended hourly rates ($37/hr at 60% realization). Actual savings will vary based on adoption and implementation scope.
+<span style="font-weight:600">2.</span> Revenue impact figures reflect productivity and pipeline efficiency gains, not direct revenue generation. Realized value depends on conversion rates and deal outcomes.
+<span style="font-weight:600">3.</span> "Complete and operational" indicates the use case has been designed, built, and is running in production. "Design complete; in development" indicates requirements and technical specifications are delivered and engineering work is underway.
+<span style="font-weight:600">4.</span> This report covers Phase 2 (design and specification) only. Implementation timelines and costs for use cases not yet in production are subject to separate scoping.
+<span style="font-weight:600">5.</span> All figures in Canadian Dollars (CAD) unless otherwise noted.
+</div>
+</div>
+<div class="foot"><div>Inscend AI Ltd. × Optimize Wealth Management — Phase 2 Status Report</div><div>Confidential</div></div>
+
+</body>
+</html>
